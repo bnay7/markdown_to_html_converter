@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Markdown to HTML Converter</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            margin: 20px;
+            background-color: azure;
+        }
+
+        .container {
+            background-color: aliceblue;
+            padding: 20px;
+            border-radius: 8px;
+        }
+
+        textarea {
+            width: 98%;
+            height: 150px;
+            margin-bottom: 10px;
+            padding: 10px;
+            border: 1px solid white;
+        }
+
+        button {
+            padding: 10px 15px;
+            background-color: blue;
+            color: white;
+            border: none;
+            border-radius: 1px;
+        }
+
+        button:hover {
+            background-color: blue;
+        }
+
+        .output {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: whitesmoke;
+            border: 1px solid snow;
+        }
+
+        .output h2 {
+            margin-top: 0;
+            color: gray;
+        }
+
+        .flash {
+            padding: 10px;
+            margin-bottom: 15px;
+            border-radius: 4px;
+            background-color: cornsilk;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Markdown to HTML Converter</h1>
+        {% with messages = get_flashed_messages()%}
+            {% if messages %}
+                <div class="flash">
+                    {%for message in messages %}
+                        {{message}}
+                    {% endfor %}
+                </div>
+            {% endif %}
+        {% endwith %}
+
+        <form method="POST" action="/">
+            <label for="markdown_text"> Enter Markdown</label><br>
+            <textarea id="markdown_text" name="markdown_text" required>{{markdown_input}}</textarea><br>
+            <button type="submit">Convert to HTML</button>
+        </form>
+
+        {% if html_output %}
+            <div class="output">
+                <h2>Generated HTML</h2>
+                <!-- Use |safe filter to render HTML tags-->
+                <div>{{ html_output | safe}}</div>
+
+            </div>
+        {%endif %}
+
+
+    </div>
+</body>
+
+</html>
